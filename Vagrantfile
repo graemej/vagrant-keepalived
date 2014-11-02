@@ -88,7 +88,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   (1..3).each do |i|
     machine = $cluster.machines["zk#{i}"]
     ports = machine.ports
-    zk_config["server.#{i}"] = "#{machine.ip}:#{ports['zk-peer']}:#{ports['zk-server']}"
+    zk_peer = machine.ports['zk-peer'][:guest]
+    zk_server = machine.ports['zk-server'][:guest]
+    zk_config["server.#{i}"] = "#{machine.ip}:#{zk_peer}:#{zk_server}"
   end
 
   # zookeeper nodes

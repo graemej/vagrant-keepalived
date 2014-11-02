@@ -16,14 +16,14 @@ class Cluster
   attr_accessor :machines, :vip
 
   def initialize()
-    @base_port = (ENV['BASE_PORT'] || '18000').to_i
+    @base_port = (ENV['BASE_PORT'] || '10000').to_i
     @next_port = @base_port
     @machines = {}
   end
 
   def next_port()
     port = @next_port
-    @next_port += 1000
+    @next_port += 10000
     port
   end
 
