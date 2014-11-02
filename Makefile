@@ -1,6 +1,4 @@
 
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
-
 all:
 	vmware_fusion vagrant up
 
@@ -10,6 +8,12 @@ provision:
 rebuild:
 	vagrant destroy --force
 	VAGRANT_DEFAULT_PROVIDER=vmware_fusion vagrant up
+
+%.reload:
+	VAGRANT_DEFAULT_PROVIDER=vmware_fusion vagrant reload --provision $<
+
+%.ssh:
+	VAGRANT_DEFAULT_PROVIDER=vmware_fusion vagrant ssh $<
 
 deps:
 	bundle

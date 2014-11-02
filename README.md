@@ -17,3 +17,4 @@ The environment consists of the following components:
 
 * redis recipes
 * https://github.com/superseb/vagrant-haproxy-vrrp-puppet
+* 

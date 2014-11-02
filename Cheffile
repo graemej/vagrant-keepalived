@@ -4,6 +4,7 @@
 site 'https://supermarket.getchef.com/api/v1'
 
 cookbook 'keepalived'
-cookbook 'runit', '1.5.10'
+cookbook 'nginx'
 cookbook 'redis2'
+cookbook 'runit', '1.5.10'
 cookbook 'zookeeperd'
