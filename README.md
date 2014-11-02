@@ -11,7 +11,7 @@ The environment consists of the following components:
 
 ## notes
 * Repeat the provision:
-	* chef-solo -c /tmp/vagrant-chef/solo.rb -j /tmp/vagrant-chef/dna.json
+	* sudo chef-solo -c /tmp/vagrant-chef/solo.rb -j /tmp/vagrant-chef/dna.json
  
 ## references
 
