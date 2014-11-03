@@ -89,4 +89,5 @@ PLATFORMS
 DEPENDENCIES
   librarian-chef (= 0.0.4)
   minitest
+  pry
   rake
