@@ -83,43 +83,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  # figure out the ZK configuration
-  zk_config = {}
-  (1..3).each do |i|
-    machine = $cluster.machines["zk#{i}"]
-    ports = machine.ports
-    zk_peer = machine.ports['zk-peer'][:guest]
-    zk_server = machine.ports['zk-server'][:guest]
-    zk_config["server.#{i}"] = "#{machine.ip}:#{zk_peer}:#{zk_server}"
-  end
-
-  # zookeeper nodes
-  (1..3).each do  |i|
-    machine = $cluster.machines["zk#{i}"]
-    config.vm.define machine.id, primary: true do |config|
-      config.vm.hostname = machine.id
-      machine.ports.each {|protocol,ports| config.vm.network :forwarded_port, guest: ports[:guest], host: ports[:host] }
-      config.vm.network :private_network, ip: machine.ip
-
-      config.vm.provision :chef_solo do |chef|
-        chef.provisioning_path = "/tmp/vagrant-chef"
-        chef.cookbooks_path = "cookbooks"
-        chef.add_recipe "zookeeperd::server"
-        chef.add_recipe "zookeeperd::runit"
-        chef.json = {
-          :zookeeperd => {
-            :cluster => {
-              :auto_discovery => false
-            },
-            :zk_id => i,
-            :init => 'runit',
-            :config => zk_config,
-          },
-        }
-      end
-    end
-  end
-
   config.vm.provision "shell",
     inline: "iptables -F"
 
